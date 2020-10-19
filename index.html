@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Sociolítica</title>
+
+		<!-- HOJAS DE ESTILO -->
+		<link rel="stylesheet" href="css/leaflet.css">
+		<link rel="stylesheet" href="css/Leaflet.PolylineMeasure.css">
+		<link rel="stylesheet" href="css/leaflet.groupedlayercontrol.min.css">
+		<link rel="stylesheet" href="css/estilos.css">
+		<!-- <link rel="stylesheet" href="css/leaflet-search.css"> -->
+
+		<!-- SCRIPTS -->
+		<script src="scripts/jquery-3.5.1.min.js"></script>
+		<script src="scripts/leaflet/leaflet.js"></script>
+		<script src="scripts/leaflet.cloneLayer.js"></script>
+		<script src="scripts/Leaflet.PolylineMeasure.js"></script>
+		<script src="scripts/leaflet.groupedlayercontrol.min.js"></script>
+		<script src="scripts/leaflet-tilelayer-wmts.js"></script>
+		<!-- <script src="scripts/Leaflet-WFST.min.js"></script>
+		<script src="scripts/leaflet-search.js"></script> -->
+
+		<!-- ARGENMAP V2 -->
+		<!-- <script type="text/javascript" src="scripts/L.TileLayer.Argenmap.js"></script> -->
+
+		<!-- GEOJSONS -->
+		<script src="scripts/geojson/departamentos.js"></script>
+		<script src="scripts/geojson/radios.js"></script>
+		<script src="scripts/geojson/puntos.js"></script>
+	</head>
+	<body onload="crearMapa()">
+		<h1 id="logo">Sociolítica</h1>
+		<div id="map" class="smallmap" style="height: 100%; z-index: 1"></div>
+		<div id="referencias"></div>
+		
+		<!-- FUNCIONES -->
+		<script src="scripts/funciones.js"></script>
+	</body>
+</html>
