@@ -1,0 +1,91 @@
+html, body {
+	height: 100%;
+	margin: 0;
+	font: Montserrat !important; 
+}
+
+@font-face {
+  font-family: Montserrat;
+  src: url(../fonts/Montserrat-Regular.otf);
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: Montserrat;
+  src: url(../fonts/Montserrat-Bold.otf);
+  font-weight: bold;
+}
+
+html * {
+	font-family: Montserrat !important; 
+}
+
+#map {
+	height: 100%;
+	z-index: 1;
+}
+
+h1 {
+	position: absolute;
+    margin-top: 30px;
+    margin-left: 100px;
+    z-index: 2;
+	font-size: 0;
+	width: 250px;
+	height: 150px;
+	background: url(../images/logos/logo_azul.png);
+	background-repeat: no-repeat;
+	background-size: 100%;
+}
+
+.leaflet-touch .leaflet-control-layers, .leaflet-touch .leaflet-bar {
+	border-color: #d4b58d;
+}
+
+.leaflet-control-layers, .leaflet-touch .leaflet-bar a {
+	background-color: #fff1de;
+}
+
+div.leaflet-control-layers-group {
+	cursor: default;
+}
+
+.leaflet-control-attribution.leaflet-control {
+	font-size: 14px;
+	color: black;
+}
+
+.leaflet-control-attribution.leaflet-control a {
+	color: black;
+}
+
+.leaflet-tooltip {
+	background: none;
+	border: none;
+	box-shadow: none;
+}
+
+/* REFERENCIAS */
+
+#referencias {
+	position: absolute;
+	width: 80px;
+	height: 362px;
+	top: 200px;
+	left: 10px;
+	z-index: 1;
+	background-image:url(../images/referencias.png);
+	pointer-events: none;
+}
+
+.icono_referencia {
+	display: none;
+	color: blue;
+	font-size: 12px;
+	margin-bottom: 15px;
+	text-align: right;
+	text-transform: uppercase;
+	background: yellow;
+	border-style: solid;
+	border-color: red;
+}
