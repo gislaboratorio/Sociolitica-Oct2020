@@ -27,8 +27,8 @@ html * {
 
 h1 {
 	position: absolute;
-    margin-top: 30px;
-    margin-left: 100px;
+    margin-top: 25px;
+    margin-left: 120px;
     z-index: 2;
 	font-size: 0;
 	width: 250px;
@@ -38,14 +38,43 @@ h1 {
 	background-size: 100%;
 }
 
+.leaflet-control-layers-expanded {
+	width: 220px;
+}
+
 .leaflet-touch .leaflet-control-layers, .leaflet-touch .leaflet-bar {
 	border-color: #d4b58d;
+	border-radius: 0;
 }
 
 .leaflet-control-layers, .leaflet-touch .leaflet-bar a {
 	background-color: #fff1de;
 }
 
+.leaflet-touch .leaflet-bar a {
+	font-size: 25px;
+	line-height: 40px;
+	width: 40px;
+    height: 40px;
+}
+
+.leaflet-touch .leaflet-control-layers-toggle {
+	width: 178px;
+    height: 31px;
+	background-position: 90% 50%;
+	cursor: default;
+	color: #333333;
+	font-size: 13px;
+	text-decoration: none;
+	font-weight: bold;
+	padding-left: 10px;
+	padding-top: 13px;
+}
+
+.leaflet-container .leaflet-control-layers-toggle {
+}
+	
+	
 div.leaflet-control-layers-group {
 	cursor: default;
 }
@@ -68,14 +97,20 @@ div.leaflet-control-layers-group {
 /* REFERENCIAS */
 
 #referencias {
-	position: absolute;
-	width: 80px;
-	height: 362px;
-	top: 200px;
-	left: 10px;
-	z-index: 1;
-	background-image:url(../images/referencias.png);
-	pointer-events: none;
+position: absolute;
+    width: 200px;
+    height: 362px;
+    top: 40%;
+    left: 10px;
+    z-index: 1;
+    pointer-events: none;
+    text-transform: capitalize;
+    font-size: 24px;
+    color: #333333;
+}
+
+#referencias strong {
+	text-transform: uppercase;
 }
 
 .icono_referencia {
