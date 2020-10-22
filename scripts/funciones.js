@@ -1,7 +1,7 @@
 /* ICONOS */
 var iconoComun = L.Icon.extend({
 	options: {
-		iconSize:     [34, 60],
+		iconSize:     [45, 75],
 		shadowSize:   [50, 64],
 		iconAnchor:   [18, 60],
 		shadowAnchor: [4, 62],
@@ -11,17 +11,16 @@ var iconoComun = L.Icon.extend({
 var icono_a = [],
 	icono_b = [],
 	icono_c = [];
-icono_a[1] = new iconoComun({iconUrl: 'images/iconos/icono-a-1.png'});
-icono_a[2] = new iconoComun({iconUrl: 'images/iconos/icono-a-2.png'});
-icono_a[3] = new iconoComun({iconUrl: 'images/iconos/icono-a-3.png'});
-icono_a[4] = new iconoComun({iconUrl: 'images/iconos/icono-a-3.png'});
-icono_b[1] = new iconoComun({iconUrl: 'images/iconos/icono-b-1.png'});
-icono_b[2] = new iconoComun({iconUrl: 'images/iconos/icono-b-2.png'});
-icono_b[3] = new iconoComun({iconUrl: 'images/iconos/icono-b-3.png'});
-icono_b[4] = new iconoComun({iconUrl: 'images/iconos/icono-b-3.png'});
-icono_c[1] = new iconoComun({iconUrl: 'images/iconos/icono-c-1.png'});
-icono_c[2] = new iconoComun({iconUrl: 'images/iconos/icono-c-2.png'});
-icono_c[3] = new iconoComun({iconUrl: 'images/iconos/icono-c-3.png'});
+icono_a[1] = new iconoComun({iconUrl: 'images/iconos/icono-1.png'});
+icono_a[2] = new iconoComun({iconUrl: 'images/iconos/icono-2.png'});
+icono_a[3] = new iconoComun({iconUrl: 'images/iconos/icono-3.png'});
+icono_a[0] = new iconoComun({iconUrl: 'images/iconos/icono-4.png'});
+icono_b[1] = new iconoComun({iconUrl: 'images/iconos/icono-3.png'});
+icono_b[2] = new iconoComun({iconUrl: 'images/iconos/icono-2.png'});
+icono_b[3] = new iconoComun({iconUrl: 'images/iconos/icono-1.png'});
+icono_b[0] = new iconoComun({iconUrl: 'images/iconos/icono-4.png'});
+
+icono_c[1] = new iconoComun({iconUrl: 'images/iconos/icono-5.png'});
 
 function crearIconoVerde (feature, latlng) {
 	return L.marker(latlng, { icon: iconoVerde })
@@ -121,73 +120,9 @@ function estiloDistritos() {
 
 /* FUNCIONES ONEACHFEATURE */
 
-function onEachFeatureDistrito(feature, layer) {
-	/*var layer_duplicado_a = $.extend(true, {}, layer);*/
-	
-	layer_duplicado_a = cloneLayer(layer);
-
-	var variables = {};
-	variables['imagintpos'] = feature.properties.imagintpos;
-	variables['imagintneg'] = feature.properties.imagintneg;
-	variables['gestposit'] = feature.properties.gestposit;
-	variables['gestnegat'] = feature.properties.gestnegat;
-	variables['gestregul'] = feature.properties.gestregul;
-	variables['servposit'] = feature.properties.servposit;
-	variables['servnegat'] = feature.properties.servnegat;
-	variables['servregul'] = feature.properties.servregul;
-	variables['covisalud'] = feature.properties.covisalud;
-	variables['coviecon'] = feature.properties.coviecon;
-	variables['humorbuen'] = feature.properties.humorbuen;
-	variables['humormalo'] = feature.properties.humormalo;
-	variables['humoregu'] = feature.properties.humoregu;
-	variables['interbuena'] = feature.properties.interbuena;
-	variables['intermala'] = feature.properties.intermala;
-	variables['interegu'] = feature.properties.interegu;
-	var nombres_variables = Object.keys(variables);
-
-	layer_duplicado_a.setStyle({fillColor: "orange", color: "orange", fillOpacity: 0.6, weight: 4});
-		
-	layergroup_distritos['todos'].addLayer(layer_duplicado_a);
-	layer_duplicado_a.bindPopup("<strong>" + feature.properties.distrito + "</strong>");
-	layer_duplicado_a.bindTooltip(feature.properties.distrito, {permanent: true, direction:"center"}).openTooltip();
-
-	var layer_duplicado_b = [];
-	i = 0;
-	for (var variableactual in variables) {
-		layer_duplicado_b[i] = cloneLayer(layer);
-		valor_variable = variables[variableactual];
-		
-		/*if (valor_variable <= 2) {
-			var valor_polar = "baja";
-		} else {
-			var valor_polar = "negativa";
-		}*/
-		
-		var color = [];
-		if (nombres_variables[i] == 'imagintpos' || nombres_variables[i] == 'gestposit' || nombres_variables[i] == 'servposit' || nombres_variables[i] == 'covisalud' || nombres_variables[i] == 'humorbuen' || nombres_variables[i] == 'interbuena') {
-			color[1] = "#c0f5a9";
-			color[2] = "#7bc87c";
-			color[3] = "#357f51";
-		} else if (nombres_variables[i] == 'imagintneg' || nombres_variables[i] == 'gestnegat' || nombres_variables[i] == 'servnegat' || nombres_variables[i] == 'coviecon' || nombres_variables[i] == 'humormalo' || nombres_variables[i] == 'intermala') {
-			color[1] = "#f9d5c9";
-			color[2] = "#f55959";
-			color[3] = "#ff0000";
-		} else if (nombres_variables[i] == 'gestregul' || nombres_variables[i] == 'servregul' || nombres_variables[i] == 'humoregu' || nombres_variables[i] == 'interegu') {
-			color[1] = "#fffb97";
-			color[2] = "#ffe569";
-			color[3] = "#fdf800";
-		}
-		color[0] = "#888888";
-			
-		layer_duplicado_b[i].setStyle({fillColor: color[valor_variable], color: color[0], fillOpacity: 0.8, weight: 1});
-
-		layergroup_distritos[nombres_variables[i]]['todos'].addLayer(layer_duplicado_b[i]);
-	
-		layer_duplicado_b[i].bindPopup("<strong>" + feature.properties.distrito + "</strong>");
-		layer_duplicado_b[i].bindTooltip(feature.properties.distrito, {permanent: true, direction:"center"}).openTooltip();
-		
-		i++;
-	};
+function onEachFeatureDepartamento(feature, layer) {
+	layer.setStyle({fillColor: "orange", color: "orange", fillOpacity: 0.3, weight: 2});
+	layer.bindPopup("<strong>" + feature.properties.DEPARTAMEN + "</strong>");
 }
 
 
@@ -202,45 +137,43 @@ function onEachFeatureRadio(feature, layer) {
 function onEachFeaturePunto(feature, layer) {
 
 	var variables = {};
-	variables['variable1'] = feature.properties.variable1;
-	variables['variable2'] = feature.properties.variable2;
-	variables['variable3'] = feature.properties.variable3;
-	variables['variable4'] = feature.properties.variable4;
-	variables['variable5'] = feature.properties.variable5;
-	variables['variable6'] = feature.properties.variable6;
-	variables['variable7'] = feature.properties.variable7;
+	variables['HUMORSOC'] = feature.properties.HUMORSOC;
+	variables['AFINIDAFCM'] = feature.properties.AFINIDAFCM;
+	variables['AFINGESTFC'] = feature.properties.AFINGESTFC;
+	variables['IMGSUAREZ'] = feature.properties.IMGSUAREZ;
+	variables['SERVICONEC'] = feature.properties.SERVICONEC;
+	variables['AFINIDFDT'] = feature.properties.AFINIDFDT;
+	/*variables['variable7'] = feature.properties.variable7;
 	variables['variable8'] = feature.properties.variable8;
-	variables['variable9'] = feature.properties.variable9;
+	variables['variable9'] = feature.properties.variable9;*/
+	
 
-	if (variables['variable7'] == "1") { texto_estrato = "BAJO" } else if (variables['variable7'] == "2") { texto_estrato = "MEDIO" } else { texto_estrato = "ALTO" }
+	/*if (variables['variable7'] == "1") { texto_estrato = "BAJO" } else if (variables['variable7'] == "2") { texto_estrato = "MEDIO" } else { texto_estrato = "ALTO" }
 	if (variables['variable8'] == "1") { texto_edad = "18-34" } else if (variables['variable8'] == "2") { texto_edad = "35-54" } else { texto_edad = "55-74" }
-	if (variables['variable9'] == "1") { texto_sexo = "HOMBRE" } else if (variables['variable9'] == "2") { texto_sexo = "MUJER" } else { texto_sexo = "OTRO" }
+	if (variables['variable9'] == "1") { texto_sexo = "HOMBRE" } else if (variables['variable9'] == "2") { texto_sexo = "MUJER" } else { texto_sexo = "OTRO" }*/
 	
 
 	var layer_duplicado_a = cloneLayer(layer);
 
-	layer_duplicado_a.bindPopup("Variable 1: <strong>" + variables['variable1'] + "</strong>" + "<br/>"
-		+ "Variable 2: <strong>" + variables['variable2'] + "</strong>" + "<br/>"
-		+ "Variable 3: <strong>" + variables['variable3'] + "</strong>" + "<br/>"
-		+ "Variable 4: <strong>" + variables['variable4'] + "</strong>" + "<br/>"
-		+ "Variable 5: <strong>" + variables['variable5'] + "</strong>" + "<br/>"
-		+ "Variable 6: <strong>" + variables['variable6'] + "</strong>" + "<br/>"
-		+ "Variable 7: <strong>" + texto_estrato + "</strong>" + "<br/>"
-		+ "Variable 8: <strong>" + texto_edad + "</strong>" + "<br/>"
-		+ "Variable 9: <strong>" + texto_sexo + "</strong>");
+	layer_duplicado_a.bindPopup("Humor Social: <strong>" + etiquetas_variables['HUMORSOC'][variables['HUMORSOC']] + "</strong>" + "<br/>"
+		+ "Afinidad FCM: <strong>" + etiquetas_variables['AFINIDAFCM'][variables['AFINIDAFCM']] + "</strong>" + "<br/>"
+		+ "Afinidad Gestión FCM: <strong>" + etiquetas_variables['AFINGESTFC'][variables['AFINGESTFC']] + "</strong>" + "<br/>"
+		+ "Imagen R. Suárez: <strong>" + etiquetas_variables['IMGSUAREZ'][variables['IMGSUAREZ']] + "</strong>" + "<br/>"
+		+ "Servicio Conectividad: <strong>" + etiquetas_variables['SERVICONEC'][variables['SERVICONEC']] + "</strong>" + "<br/>"
+		+ "Afinidad FDT: <strong>" + etiquetas_variables['AFINIDFDT'][variables['AFINIDFDT']] + "</strong>");
 
 	layer_duplicado_a.setIcon(icono_c[1]);
 	layergroup_puntos['todos'].addLayer(layer_duplicado_a);
 	
-	var clasificaciones = ['variable1', 'variable2', 'variable3', 'variable4', 'variable5', 'variable6', 'variable7', 'variable8', 'variable9'];
+	var clasificaciones = ['HUMORSOC', 'AFINIDAFCM', 'AFINGESTFC', 'IMGSUAREZ', 'SERVICONEC', 'AFINIDFDT'];
 
 	i = 0;
 	for (var clasificacionactual in clasificaciones) {
 		var layer_duplicado_b = cloneLayer(layer);
 		var valor_variable = variables[clasificaciones[i]];
 		
-		if (clasificaciones[i] == 'variable7' || clasificaciones[i] == 'variable8' || clasificaciones[i] == 'variable9') {
-			var usar_icono = icono_c[valor_variable];
+		if (clasificaciones[i] == 'SERVICONEC') {
+			var usar_icono = icono_b[valor_variable];
 		} else {
 			var usar_icono = icono_a[valor_variable];
 		}
@@ -249,15 +182,12 @@ function onEachFeaturePunto(feature, layer) {
 
 		layergroup_puntos[clasificaciones[i]][valor_variable].addLayer(layer_duplicado_b);
 
-		layer_duplicado_a.bindPopup("Variable 1: <strong>" + variables['variable1'] + "</strong>" + "<br/>"
-			+ "Variable 2: <strong>" + variables['variable2'] + "</strong>" + "<br/>"
-			+ "Variable 3: <strong>" + variables['variable3'] + "</strong>" + "<br/>"
-			+ "Variable 4: <strong>" + variables['variable4'] + "</strong>" + "<br/>"
-			+ "Variable 5: <strong>" + variables['variable5'] + "</strong>" + "<br/>"
-			+ "Variable 6: <strong>" + variables['variable6'] + "</strong>" + "<br/>"
-			+ "Variable 7: <strong>" + texto_estrato + "</strong>" + "<br/>"
-			+ "Variable 8: <strong>" + texto_edad + "</strong>" + "<br/>"
-			+ "Variable 9: <strong>" + texto_sexo + "</strong>");
+		layer_duplicado_b.bindPopup("Humor Social: <strong>" + etiquetas_variables['HUMORSOC'][variables['HUMORSOC']] + "</strong>" + "<br/>"
+			+ "Afinidad FCM: <strong>" + etiquetas_variables['AFINIDAFCM'][variables['AFINIDAFCM']] + "</strong>" + "<br/>"
+			+ "Afinidad Gestión FCM: <strong>" + etiquetas_variables['AFINGESTFC'][variables['AFINGESTFC']] + "</strong>" + "<br/>"
+			+ "Imagen R. Suárez: <strong>" + etiquetas_variables['IMGSUAREZ'][variables['IMGSUAREZ']] + "</strong>" + "<br/>"
+			+ "Servicio Conectividad: <strong>" + etiquetas_variables['SERVICONEC'][variables['SERVICONEC']] + "</strong>" + "<br/>"
+			+ "Afinidad FDT: <strong>" + etiquetas_variables['AFINIDFDT'][variables['AFINIDFDT']] + "</strong>");
 		
 		i++;
 	};
@@ -298,21 +228,67 @@ layergroup_puntos['visioncuar2'] = {'sexo1': L.layerGroup(), 'sexo2': L.layerGro
 
 var layergroup_puntos = {'todos': L.layerGroup(), 'ninguno': L.layerGroup()};
 
-layergroup_puntos['variable1'] = {'1': L.layerGroup(), '2': L.layerGroup(), '3': L.layerGroup(), '4': L.layerGroup()};
-layergroup_puntos['variable2'] = {'1': L.layerGroup(), '2': L.layerGroup(), '3': L.layerGroup(), '4': L.layerGroup()};
-layergroup_puntos['variable3'] = {'1': L.layerGroup(), '2': L.layerGroup(), '3': L.layerGroup(), '4': L.layerGroup()};
-layergroup_puntos['variable4'] = {'1': L.layerGroup(), '2': L.layerGroup(), '3': L.layerGroup(), '4': L.layerGroup()};
-layergroup_puntos['variable5'] = {'1': L.layerGroup(), '2': L.layerGroup(), '3': L.layerGroup(), '4': L.layerGroup()};
-layergroup_puntos['variable6'] = {'1': L.layerGroup(), '2': L.layerGroup(), '3': L.layerGroup(), '4': L.layerGroup()};
-layergroup_puntos['variable7'] = {'1': L.layerGroup(), '2': L.layerGroup(), '3': L.layerGroup(), '4': L.layerGroup()};
-layergroup_puntos['variable8'] = {'1': L.layerGroup(), '2': L.layerGroup(), '3': L.layerGroup(), '4': L.layerGroup()};
-layergroup_puntos['variable9'] = {'1': L.layerGroup(), '2': L.layerGroup(), '3': L.layerGroup(), '4': L.layerGroup()};
+layergroup_puntos['HUMORSOC'] = {'1': L.layerGroup(), '2': L.layerGroup(), '3': L.layerGroup(), '0': L.layerGroup()};
+layergroup_puntos['AFINIDAFCM'] = {'1': L.layerGroup(), '2': L.layerGroup(), '3': L.layerGroup(), '0': L.layerGroup()};
+layergroup_puntos['AFINGESTFC'] = {'1': L.layerGroup(), '2': L.layerGroup(), '3': L.layerGroup(), '0': L.layerGroup()};
+layergroup_puntos['IMGSUAREZ'] = {'1': L.layerGroup(), '2': L.layerGroup(), '3': L.layerGroup(), '0': L.layerGroup()};
+layergroup_puntos['SERVICONEC'] = {'1': L.layerGroup(), '2': L.layerGroup(), '3': L.layerGroup(), '0': L.layerGroup()};
+layergroup_puntos['AFINIDFDT'] = {'1': L.layerGroup(), '2': L.layerGroup(), '3': L.layerGroup(), '0': L.layerGroup()};
+/*layergroup_puntos['variable7'] = {'1': L.layerGroup(), '2': L.layerGroup(), '3': L.layerGroup(), '0': L.layerGroup()};
+layergroup_puntos['variable8'] = {'1': L.layerGroup(), '2': L.layerGroup(), '3': L.layerGroup(), '0': L.layerGroup()};
+layergroup_puntos['variable9'] = {'1': L.layerGroup(), '2': L.layerGroup(), '3': L.layerGroup(), '0': L.layerGroup()};*/
+
+	
+var etiquetas_variables = {
+	'HUMORSOC': {
+		'propia': 'Humor Social',
+		1: 'Bueno',
+		2: 'Medio',
+		3: 'Malo',
+		0: 'Sin dato'
+	},
+	'AFINIDAFCM': {
+		'propia': 'Afinidad F.C.M.',
+		1: 'Alta',
+		2: 'Media',
+		3: 'Baja',
+		0: 'Sin dato'
+	},
+	'AFINGESTFC': {
+		'propia': 'Afinidad Gestión F.C.M.',
+		1: 'Positiva',
+		2: 'Negativa',
+		3: 'Ajena',
+		0: 'Sin dato'
+	},
+	'IMGSUAREZ': {
+		'propia': 'Imagen R. Suárez',
+		1: 'Positiva',
+		2: 'Negativa',
+		3: 'Ajena',
+		0: 'Sin dato'
+	},
+	'SERVICONEC': {
+		'propia': 'Servicio Conectividad',
+		1: 'Malo',
+		2: 'Moderado',
+		3: 'Aceptable',
+		0: 'Sin dato'
+	},
+	'AFINIDFDT': {
+		'propia': 'Afinidad F.D.T.',
+		1: 'Alta',
+		2: 'Media',
+		3: 'Baja',
+		0: 'Sin dato'
+	}
+};
 
 
 /* CREACIÓN DEL MAPA CON BASE LAYERS Y OVERLAYS */
 
 var layergroup_radios = L.layerGroup();
-var overlay_departamentos = L.geoJson(geojson_departamentos),
+var overlay_departamentos = L.geoJson(geojson_departamentos, { onEachFeature: function(feature, layer) { onEachFeatureDepartamento(feature, layer) } }),
 	overlay_radios = L.geoJson(geojson_radios, { onEachFeature: function(feature, layer) { onEachFeatureRadio(feature, layer) } }),
 	overlay_puntos = L.geoJson(geojson_puntos, { onEachFeature: function(feature, layer) { onEachFeaturePunto(feature, layer) } });
 	
@@ -326,34 +302,34 @@ var groupedOverlays = {
 	"RADIOS": {
 		"Todos los radios": layergroup_radios
 	},
-	"<br/>PUNTOS MUESTRALES": {
+	"<br/>  PUNTOS MUESTRALES": {
 		"Todos": layergroup_puntos['todos'],
 		"Ninguno": layergroup_puntos['ninguno'],
-		"Variable 1 1": layergroup_puntos['variable1']['1'],
-		"Variable 1 2": layergroup_puntos['variable1']['2'],
-		"Variable 1 3": layergroup_puntos['variable1']['3'],
-		"Variable 1 4": layergroup_puntos['variable1']['4'],
-		"Variable 2 1": layergroup_puntos['variable2']['1'],
-		"Variable 2 2": layergroup_puntos['variable2']['2'],
-		"Variable 2 3": layergroup_puntos['variable2']['3'],
-		"Variable 2 4": layergroup_puntos['variable2']['4'],
-		"Variable 3 1": layergroup_puntos['variable3']['1'],
-		"Variable 3 2": layergroup_puntos['variable3']['2'],
-		"Variable 3 3": layergroup_puntos['variable3']['3'],
-		"Variable 3 4": layergroup_puntos['variable3']['4'],
-		"Variable 4 1": layergroup_puntos['variable4']['1'],
-		"Variable 4 2": layergroup_puntos['variable4']['2'],
-		"Variable 4 3": layergroup_puntos['variable4']['3'],
-		"Variable 4 4": layergroup_puntos['variable4']['4'],
-		"Variable 5 1": layergroup_puntos['variable5']['1'],
-		"Variable 5 2": layergroup_puntos['variable5']['2'],
-		"Variable 5 3": layergroup_puntos['variable5']['3'],
-		"Variable 5 4": layergroup_puntos['variable5']['4'],
-		"Variable 6 1": layergroup_puntos['variable6']['1'],
-		"Variable 6 2": layergroup_puntos['variable6']['2'],
-		"Variable 6 3": layergroup_puntos['variable6']['3'],
-		"Variable 6 4": layergroup_puntos['variable6']['4'],
-		"Variable 7 1": layergroup_puntos['variable7']['1'],
+		"Bueno": layergroup_puntos['HUMORSOC']['1'],
+		"Medio": layergroup_puntos['HUMORSOC']['2'],
+		"Malo": layergroup_puntos['HUMORSOC']['3'],
+		"Sin dato": layergroup_puntos['HUMORSOC']['0'],
+		"Alta": layergroup_puntos['AFINIDAFCM']['1'],
+		"Media": layergroup_puntos['AFINIDAFCM']['2'],
+		"Baja": layergroup_puntos['AFINIDAFCM']['3'],
+		"Sin dato ": layergroup_puntos['AFINIDAFCM']['0'],
+		"Positiva": layergroup_puntos['AFINGESTFC']['1'],
+		"Negativa": layergroup_puntos['AFINGESTFC']['2'],
+		"Ajena": layergroup_puntos['AFINGESTFC']['3'],
+		"Sin dato  ": layergroup_puntos['AFINGESTFC']['0'],
+		"Positiva ": layergroup_puntos['IMGSUAREZ']['1'],
+		"Negativa ": layergroup_puntos['IMGSUAREZ']['2'],
+		"Ajena ": layergroup_puntos['IMGSUAREZ']['3'],
+		"Sin dato   ": layergroup_puntos['IMGSUAREZ']['0'],
+		"Aceptable": layergroup_puntos['SERVICONEC']['3'],
+		"Moderado": layergroup_puntos['SERVICONEC']['2'],
+		"Malo ": layergroup_puntos['SERVICONEC']['1'],
+		"Sin dato    ": layergroup_puntos['SERVICONEC']['0'],
+		"Alta ": layergroup_puntos['AFINIDFDT']['1'],
+		"Media ": layergroup_puntos['AFINIDFDT']['2'],
+		"Baja ": layergroup_puntos['AFINIDFDT']['3'],
+		"Sin dato     ": layergroup_puntos['AFINIDFDT']['0'],
+		/*"Variable 7 1": layergroup_puntos['variable7']['1'],
 		"Variable 7 2": layergroup_puntos['variable7']['2'],
 		"Variable 7 3": layergroup_puntos['variable7']['3'],
 		"Variable 8 1": layergroup_puntos['variable8']['1'],
@@ -361,13 +337,13 @@ var groupedOverlays = {
 		"Variable 8 3": layergroup_puntos['variable8']['3'],
 		"Variable 9 1": layergroup_puntos['variable9']['1'],
 		"Variable 9 2": layergroup_puntos['variable9']['2'],
-		"Variable 9 3": layergroup_puntos['variable9']['3'],
+		"Variable 9 3": layergroup_puntos['variable9']['3'],*/
 	}
 };
 
 var opciones_groupedlayers = {
 	exclusiveGroups: [
-		"<br/>PUNTOS MUESTRALES"
+		"<br/>  PUNTOS MUESTRALES"
 	],
 	groupCheckboxes: false
 };
@@ -393,14 +369,22 @@ function crearMapa() {
 	map.addLayer(overlay_departamentos);
 	map.addLayer(layergroup_puntos['todos']);
 	
-	$('<span class="leaflet-control-layers-group-name">- Imagen de Intendente</span>').insertBefore($('div.leaflet-control-layers-group label').get(4));
-	$('<span class="leaflet-control-layers-group-name">- Imagen de Gestión</span>').insertBefore($('div.leaflet-control-layers-group label').get(6));
-	$('<span class="leaflet-control-layers-group-name">- Valoración de Servicio</span>').insertBefore($('div.leaflet-control-layers-group label').get(9));
-	$('<span class="leaflet-control-layers-group-name">- Prioridad COVID</span>').insertBefore($('div.leaflet-control-layers-group label').get(12));
-	$('<span class="leaflet-control-layers-group-name">- Humor social</span>').insertBefore($('div.leaflet-control-layers-group label').get(14));
-	$('<span class="leaflet-control-layers-group-name">- Servicio de internet</span>').insertBefore($('div.leaflet-control-layers-group label').get(17));
-	$('<span class="leaflet-control-layers-group-name">- Estrato</span>').insertBefore($('div.leaflet-control-layers-group label').get(23));
-	$('<span class="leaflet-control-layers-group-name">- Edad</span>').insertBefore($('div.leaflet-control-layers-group label').get(26));
+	$('.leaflet-control-layers-toggle').append('<span>PANEL DE CAPAS</span>');
+	
+	$('<label class="leaflet-control-layers-group-label"><span class="leaflet-control-layers-group-name">- ' + etiquetas_variables['HUMORSOC']['propia'] + '</span></label>').insertBefore($('div.leaflet-control-layers-group label').get(5));
+	$('<label class="leaflet-control-layers-group-label"><span class="leaflet-control-layers-group-name">- ' + etiquetas_variables['AFINIDAFCM']['propia'] + '</span></label>').insertBefore($('div.leaflet-control-layers-group label').get(10));
+	$('<label class="leaflet-control-layers-group-label"><span class="leaflet-control-layers-group-name">- ' + etiquetas_variables['AFINGESTFC']['propia'] + '</span></label>').insertBefore($('div.leaflet-control-layers-group label').get(15));
+	$('<label class="leaflet-control-layers-group-label"><span class="leaflet-control-layers-group-name">- ' + etiquetas_variables['IMGSUAREZ']['propia'] + '</span></label>').insertBefore($('div.leaflet-control-layers-group label').get(20));
+	$('<label class="leaflet-control-layers-group-label"><span class="leaflet-control-layers-group-name">- ' + etiquetas_variables['SERVICONEC']['propia'] + '</span></label>').insertBefore($('div.leaflet-control-layers-group label').get(25));
+	$('<label class="leaflet-control-layers-group-label"><span class="leaflet-control-layers-group-name">- ' + etiquetas_variables['AFINIDFDT']['propia'] + '</span></label>').insertBefore($('div.leaflet-control-layers-group label').get(30));
+
+	$('#leaflet-control-layers-group-1 label:not(.leaflet-control-layers-group-label)').click(function (){
+		$('#referencias').empty();
+		console.log($(this).prevAll('.leaflet-control-layers-group-name').first());
+		var nombre_layer = $(this).text();
+		var nombre_grupo = $(this).prevAll('.leaflet-control-layers-group-label').first().text().substring(2, 50).toLowerCase();
+		$('#referencias').append(nombre_grupo + '<br/><strong>' + nombre_layer + '</strong>');
+	});
 	
 	$("body a").attr("target","_blank");
 }
