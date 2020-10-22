@@ -19,103 +19,10 @@ icono_b[1] = new iconoComun({iconUrl: 'images/iconos/icono-3.png'});
 icono_b[2] = new iconoComun({iconUrl: 'images/iconos/icono-2.png'});
 icono_b[3] = new iconoComun({iconUrl: 'images/iconos/icono-1.png'});
 icono_b[0] = new iconoComun({iconUrl: 'images/iconos/icono-4.png'});
-
 icono_c[1] = new iconoComun({iconUrl: 'images/iconos/icono-5.png'});
 
-function crearIconoVerde (feature, latlng) {
-	return L.marker(latlng, { icon: iconoVerde })
-}
-
-function crearIconoRojo (feature, latlng) {
-	return L.marker(latlng, { icon: iconoRojo })
-}
-
-function crearIconoNaranja (feature, latlng) {
-	return L.marker(latlng, { icon: iconoNaranja })
-}
-
-var asignarIconoVerde = {
-  pointToLayer: crearIconoVerde
-}
-
-var asignarIconoRojo = {
-  pointToLayer: crearIconoRojo
-}
-
-var asignarIconoNaranja = {
-  pointToLayer: crearIconoNaranja
-}
 
 /* POPUPS */
-function agregarPopupPunto(feature, layer) {
-	if (feature.properties.imageninte == "1") { imageninte = "POSITIVA" } else { imageninte = "NEGATIVA" }
-	if (feature.properties.imagengest == "1") { imagengest = "POSITIVA" } else { imagengest = "NEGATIVA" }
-	if (feature.properties.consumomed == "1") { consumomed = "POSITIVA" } else { consumomed = "NEGATIVA" }
-	if (feature.properties.satisfacci == "1") { satisfacci = "POSITIVA" } else { satisfacci = "NEGATIVA" }
-	if (feature.properties.visioncuar == "1") { visioncuar = "POSITIVA" } else { visioncuar = "NEGATIVA" }
-	layer.bindPopup("Imagen Intendente: <strong>" + imageninte + "</strong>" + "<br/>"
-		+ "Imagen Gestión: <strong>" + imagengest + "</strong>" + "<br/>"
-		+ "Consumo de Medios: <strong>" + consumomed + "</strong>" + "<br/>"
-		+ "Satisfacción de servicio: <strong>" + satisfacci + "</strong>" + "<br/>"
-		+ "Visión respecto a cuarentena: <strong>" + visioncuar + "</strong>");
-}
-
-function agregarPopupDistrito(feature, layer) {
-	if (feature.properties && feature.properties.nombre) { 
-			layer.bindPopup( "<strong>" + feature.properties.nombre + "</strong>"); 
-	} 
-}
-
-function agregarPopupRadio(feature, layer) {
-	if (feature.properties && feature.properties.DFR) { 
-			layer.bindPopup( "<strong>" + feature.properties.DFR + "</strong>"); 
-	} 
-}
-function estiloDistritos() {
-	
-/*	var variables = {};
-	variables['imageninte'] = feature.properties.imageninte;
-	variables['imagengest'] = feature.properties.imagengest;
-	variables['consumomed'] = feature.properties.consumomed;
-	variables['satisfacci'] = feature.properties.satisfacci;
-	variables['visioncuar'] = feature.properties.visioncuar;
-	variables['visioncuar'] = feature.properties.visioncuar;
-	var nombres_variables = Object.keys(variables);
-	
-	var variables = ['positiva', 'negativa']
-	for (variable in variables) {
-		color = [];
-		if (variable == "positiva") {
-			color[1] = "#0000b3";
-			color[2] = "#1a1aff"
-			color[3] = "#9999ff"
-			color[4] = "#ffffff"
-		} else {
-			color[1] = "#cc0000";
-			color[2] = "#ff3333"
-			color[3] = "#ffcccc"
-			color[4] = "#ffffff"
-		}
-		layergroup_distritos[variable].eachLayer(function(featureInstanceLayer) {
-			var id_feature = featureInstanceLayer.feature.properties['qc_id'];
-			if (id_feature == 0) {
-				color_actual = 'green';
-			} else if (id_feature == 1) {
-				color_actual = 'red';
-			} else if (id_feature == 2) {
-				color_actual = 'orange';
-			} else if (id_feature == 3) {
-				color_actual = 'black';
-			} else if (id_feature == 4) {
-				color_actual = 'yellow';
-			} else if (id_feature == 5) {
-				color_actual = 'blue';
-			}
-			featureInstanceLayer.setStyle({
-				color: color_actual
-			});
-		});*/
-}
 
 
 /* FUNCIONES ONEACHFEATURE */
@@ -143,24 +50,15 @@ function onEachFeaturePunto(feature, layer) {
 	variables['IMGSUAREZ'] = feature.properties.IMGSUAREZ;
 	variables['SERVICONEC'] = feature.properties.SERVICONEC;
 	variables['AFINIDFDT'] = feature.properties.AFINIDFDT;
-	/*variables['variable7'] = feature.properties.variable7;
-	variables['variable8'] = feature.properties.variable8;
-	variables['variable9'] = feature.properties.variable9;*/
-	
-
-	/*if (variables['variable7'] == "1") { texto_estrato = "BAJO" } else if (variables['variable7'] == "2") { texto_estrato = "MEDIO" } else { texto_estrato = "ALTO" }
-	if (variables['variable8'] == "1") { texto_edad = "18-34" } else if (variables['variable8'] == "2") { texto_edad = "35-54" } else { texto_edad = "55-74" }
-	if (variables['variable9'] == "1") { texto_sexo = "HOMBRE" } else if (variables['variable9'] == "2") { texto_sexo = "MUJER" } else { texto_sexo = "OTRO" }*/
-	
 
 	var layer_duplicado_a = cloneLayer(layer);
 
-	layer_duplicado_a.bindPopup("Humor Social: <strong>" + etiquetas_variables['HUMORSOC'][variables['HUMORSOC']] + "</strong>" + "<br/>"
-		+ "Afinidad FCM: <strong>" + etiquetas_variables['AFINIDAFCM'][variables['AFINIDAFCM']] + "</strong>" + "<br/>"
-		+ "Afinidad Gestión FCM: <strong>" + etiquetas_variables['AFINGESTFC'][variables['AFINGESTFC']] + "</strong>" + "<br/>"
-		+ "Imagen R. Suárez: <strong>" + etiquetas_variables['IMGSUAREZ'][variables['IMGSUAREZ']] + "</strong>" + "<br/>"
-		+ "Servicio Conectividad: <strong>" + etiquetas_variables['SERVICONEC'][variables['SERVICONEC']] + "</strong>" + "<br/>"
-		+ "Afinidad FDT: <strong>" + etiquetas_variables['AFINIDFDT'][variables['AFINIDFDT']] + "</strong>");
+	layer_duplicado_a.bindPopup(etiquetas_variables['HUMORSOC']['propia'] + ': <strong>' + etiquetas_variables['HUMORSOC'][variables['HUMORSOC']] + "</strong>" + "<br/>"
+		+ etiquetas_variables['AFINIDAFCM']['propia'] + ': <strong>' + etiquetas_variables['AFINIDAFCM'][variables['AFINIDAFCM']] + "</strong>" + "<br/>"
+		+ etiquetas_variables['AFINGESTFC']['propia'] + ': <strong>' + etiquetas_variables['AFINGESTFC'][variables['AFINGESTFC']] + "</strong>" + "<br/>"
+		+ etiquetas_variables['IMGSUAREZ']['propia'] + ': <strong>' + etiquetas_variables['IMGSUAREZ'][variables['IMGSUAREZ']] + "</strong>" + "<br/>"
+		+ etiquetas_variables['SERVICONEC']['propia'] + ': <strong>' + etiquetas_variables['SERVICONEC'][variables['SERVICONEC']] + "</strong>" + "<br/>"
+		+ etiquetas_variables['AFINIDFDT']['propia'] + ': <strong>' + etiquetas_variables['AFINIDFDT'][variables['AFINIDFDT']] + "</strong>");
 
 	layer_duplicado_a.setIcon(icono_c[1]);
 	layergroup_puntos['todos'].addLayer(layer_duplicado_a);
@@ -194,9 +92,6 @@ function onEachFeaturePunto(feature, layer) {
 }
 
 /* BASE LAYERS */
-var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-	osmAttrib = '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-	mapabase_osm = L.tileLayer(osmUrl, {maxZoom: 20, attribution: osmAttrib, opacity: 0.4});
 var mapabase_argenmap = new L.TileLayer.WMTS('https://wms.ign.gob.ar/geoserver/capabaseargenmap/gwc/service/wmts?',
 	   {
 		   layer: 'capabaseargenmap',
@@ -211,21 +106,6 @@ var mapabase_argenmap = new L.TileLayer.WMTS('https://wms.ign.gob.ar/geoserver/c
 
 /* OVERLAYS */
 
-/*
-var layergroup_puntos = {'todos': L.layerGroup(), 'imageninte1_todos': L.layerGroup(), 'imageninte2_todos': L.layerGroup(), 'imagengest1_todos': L.layerGroup(), 'imagengest2_todos': L.layerGroup(), 'consumomed1_todos': L.layerGroup(), 'consumomed2_todos': L.layerGroup(), 'satisfacci1_todos': L.layerGroup(), 'satisfacci2_todos': L.layerGroup(), 'visioncuar1_todos': L.layerGroup(), 'visioncuar2_todos': L.layerGroup()};
-
-layergroup_puntos['imageninte1'] = {'sexo1': L.layerGroup(), 'sexo2': L.layerGroup(), 'estrato1': L.layerGroup(), 'estrato2': L.layerGroup(), 'estrato3': L.layerGroup(), 'edad1': L.layerGroup(), 'edad2': L.layerGroup(), 'edad3': L.layerGroup()};
-layergroup_puntos['imageninte2'] = {'sexo1': L.layerGroup(), 'sexo2': L.layerGroup(), 'estrato1': L.layerGroup(), 'estrato2': L.layerGroup(), 'estrato3': L.layerGroup(), 'edad1': L.layerGroup(), 'edad2': L.layerGroup(), 'edad3': L.layerGroup()};
-layergroup_puntos['imagengest1'] = {'sexo1': L.layerGroup(), 'sexo2': L.layerGroup(), 'estrato1': L.layerGroup(), 'estrato2': L.layerGroup(), 'estrato3': L.layerGroup(), 'edad1': L.layerGroup(), 'edad2': L.layerGroup(), 'edad3': L.layerGroup()};
-layergroup_puntos['imagengest2'] = {'sexo1': L.layerGroup(), 'sexo2': L.layerGroup(), 'estrato1': L.layerGroup(), 'estrato2': L.layerGroup(), 'estrato3': L.layerGroup(), 'edad1': L.layerGroup(), 'edad2': L.layerGroup(), 'edad3': L.layerGroup()};
-layergroup_puntos['consumomed1'] = {'sexo1': L.layerGroup(), 'sexo2': L.layerGroup(), 'estrato1': L.layerGroup(), 'estrato2': L.layerGroup(), 'estrato3': L.layerGroup(), 'edad1': L.layerGroup(), 'edad2': L.layerGroup(), 'edad3': L.layerGroup()};
-layergroup_puntos['consumomed2'] = {'sexo1': L.layerGroup(), 'sexo2': L.layerGroup(), 'estrato1': L.layerGroup(), 'estrato2': L.layerGroup(), 'estrato3': L.layerGroup(), 'edad1': L.layerGroup(), 'edad2': L.layerGroup(), 'edad3': L.layerGroup()};
-layergroup_puntos['satisfacci1'] = {'sexo1': L.layerGroup(), 'sexo2': L.layerGroup(), 'estrato1': L.layerGroup(), 'estrato2': L.layerGroup(), 'estrato3': L.layerGroup(), 'edad1': L.layerGroup(), 'edad2': L.layerGroup(), 'edad3': L.layerGroup()};
-layergroup_puntos['satisfacci2'] = {'sexo1': L.layerGroup(), 'sexo2': L.layerGroup(), 'estrato1': L.layerGroup(), 'estrato2': L.layerGroup(), 'estrato3': L.layerGroup(), 'edad1': L.layerGroup(), 'edad2': L.layerGroup(), 'edad3': L.layerGroup()};
-layergroup_puntos['visioncuar1'] = {'sexo1': L.layerGroup(), 'sexo2': L.layerGroup(), 'estrato1': L.layerGroup(), 'estrato2': L.layerGroup(), 'estrato3': L.layerGroup(), 'edad1': L.layerGroup(), 'edad2': L.layerGroup(), 'edad3': L.layerGroup()};
-layergroup_puntos['visioncuar2'] = {'sexo1': L.layerGroup(), 'sexo2': L.layerGroup(), 'estrato1': L.layerGroup(), 'estrato2': L.layerGroup(), 'estrato3': L.layerGroup(), 'edad1': L.layerGroup(), 'edad2': L.layerGroup(), 'edad3': L.layerGroup()};
-*/
-
 var layergroup_puntos = {'todos': L.layerGroup(), 'ninguno': L.layerGroup()};
 
 layergroup_puntos['HUMORSOC'] = {'1': L.layerGroup(), '2': L.layerGroup(), '3': L.layerGroup(), '0': L.layerGroup()};
@@ -234,9 +114,6 @@ layergroup_puntos['AFINGESTFC'] = {'1': L.layerGroup(), '2': L.layerGroup(), '3'
 layergroup_puntos['IMGSUAREZ'] = {'1': L.layerGroup(), '2': L.layerGroup(), '3': L.layerGroup(), '0': L.layerGroup()};
 layergroup_puntos['SERVICONEC'] = {'1': L.layerGroup(), '2': L.layerGroup(), '3': L.layerGroup(), '0': L.layerGroup()};
 layergroup_puntos['AFINIDFDT'] = {'1': L.layerGroup(), '2': L.layerGroup(), '3': L.layerGroup(), '0': L.layerGroup()};
-/*layergroup_puntos['variable7'] = {'1': L.layerGroup(), '2': L.layerGroup(), '3': L.layerGroup(), '0': L.layerGroup()};
-layergroup_puntos['variable8'] = {'1': L.layerGroup(), '2': L.layerGroup(), '3': L.layerGroup(), '0': L.layerGroup()};
-layergroup_puntos['variable9'] = {'1': L.layerGroup(), '2': L.layerGroup(), '3': L.layerGroup(), '0': L.layerGroup()};*/
 
 	
 var etiquetas_variables = {
@@ -291,8 +168,7 @@ var layergroup_radios = L.layerGroup();
 var overlay_departamentos = L.geoJson(geojson_departamentos, { onEachFeature: function(feature, layer) { onEachFeatureDepartamento(feature, layer) } }),
 	overlay_radios = L.geoJson(geojson_radios, { onEachFeature: function(feature, layer) { onEachFeatureRadio(feature, layer) } }),
 	overlay_puntos = L.geoJson(geojson_puntos, { onEachFeature: function(feature, layer) { onEachFeaturePunto(feature, layer) } });
-	
-	/*estiloDistritos();*/
+
 	
 /* DATA PARA EL LAYERS CONTROL */
 var baseMaps = {
@@ -328,16 +204,7 @@ var groupedOverlays = {
 		"Alta ": layergroup_puntos['AFINIDFDT']['1'],
 		"Media ": layergroup_puntos['AFINIDFDT']['2'],
 		"Baja ": layergroup_puntos['AFINIDFDT']['3'],
-		"Sin dato     ": layergroup_puntos['AFINIDFDT']['0'],
-		/*"Variable 7 1": layergroup_puntos['variable7']['1'],
-		"Variable 7 2": layergroup_puntos['variable7']['2'],
-		"Variable 7 3": layergroup_puntos['variable7']['3'],
-		"Variable 8 1": layergroup_puntos['variable8']['1'],
-		"Variable 8 2": layergroup_puntos['variable8']['2'],
-		"Variable 8 3": layergroup_puntos['variable8']['3'],
-		"Variable 9 1": layergroup_puntos['variable9']['1'],
-		"Variable 9 2": layergroup_puntos['variable9']['2'],
-		"Variable 9 3": layergroup_puntos['variable9']['3'],*/
+		"Sin dato     ": layergroup_puntos['AFINIDFDT']['0']
 	}
 };
 
@@ -348,10 +215,11 @@ var opciones_groupedlayers = {
 	groupCheckboxes: false
 };
 
+/* CREACIÓN DEL MAPA */
 var map = L.map('map', {
 	scrollWheelZoom: false
 }).setView([-33.9294, -68.4567], 8);	
-var layerControl = L.control.groupedLayers(baseMaps, groupedOverlays, opciones_groupedlayers);	
+var layerControl = L.control.groupedLayers(baseMaps, groupedOverlays, opciones_groupedlayers);
 map.createPane("radios").style.zIndex = 500;
 
 function crearMapa() {
